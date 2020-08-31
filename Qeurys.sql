@@ -1,7 +1,7 @@
 
 -- DROP TABLE IF EXISTS  tablename;
 
---     CREATE TABLE tablename  (
+--     CREATE TABLE messages  (
 --     id int NOT NULL AUTO_INCREMENT,
 --     username VARCHAR(80) NOT NULL,
 --     email VARCHAR(100) NOT NULL,  
