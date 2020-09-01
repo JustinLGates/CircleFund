@@ -57,7 +57,10 @@ namespace Project
 
       services.AddTransient<MessageService>();
       services.AddTransient<MessageRepo>();
-
+      services.AddTransient<OrganizationService>();
+      services.AddTransient<OrganizationRepo>();
+      services.AddTransient<FundraiserService>();
+      services.AddTransient<FundraiserRepo>();
 
     }
 
