@@ -28,7 +28,6 @@ namespace Controllers
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         if (nameIdentifier != null)
         {
-
           // Fundraiser.Email = nameIdentifier;
           return Ok(_FundraiserService.Create(Fundraiser));
         }
