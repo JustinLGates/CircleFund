@@ -10,60 +10,58 @@ namespace Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class fundraiserController
+
+  public class FundraiserController : ControllerBase
   {
-    public class FundraiserController : ControllerBase
+    private readonly FundraiserService _FundraiserService;
+
+    public FundraiserController(FundraiserService FundraiserService)
     {
-      private readonly FundraiserService _FundraiserService;
-
-      public FundraiserController(FundraiserService FundraiserService)
+      _FundraiserService = FundraiserService;
+    }
+    [Authorize]
+    [HttpPost]
+    public ActionResult<Fundraiser> Create([FromBody] Fundraiser Fundraiser)
+    {
+      try
       {
-        _FundraiserService = FundraiserService;
-      }
-      [Authorize]
-      [HttpPost]
-      public ActionResult<Fundraiser> Create([FromBody] Fundraiser Fundraiser)
-      {
-        try
+        string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        if (nameIdentifier != null)
         {
-          string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-          if (nameIdentifier != null)
-          {
 
-            // Fundraiser.Email = nameIdentifier;
-            return Ok(_FundraiserService.Create(Fundraiser));
-          }
-          else
-          {
-            throw new UnauthorizedAccessException("Unothorized");
-          }
+          // Fundraiser.Email = nameIdentifier;
+          return Ok(_FundraiserService.Create(Fundraiser));
         }
-        catch (Exception e)
+        else
         {
-          return BadRequest(e.Message);
+          throw new UnauthorizedAccessException("Unothorized");
         }
       }
-
-      [Authorize]
-      [HttpGet]
-      public ActionResult<Fundraiser> Get()
+      catch (Exception e)
       {
-        try
+        return BadRequest(e.Message);
+      }
+    }
+
+    [Authorize]
+    [HttpGet]
+    public ActionResult<Fundraiser> Get()
+    {
+      try
+      {
+        string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        if (nameIdentifier != null)
         {
-          string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-          if (nameIdentifier != null)
-          {
-            return Ok(_FundraiserService.Get(nameIdentifier));
-          }
-          else
-          {
-            throw new UnauthorizedAccessException("Unauthorized");
-          }
+          return Ok(_FundraiserService.Get(nameIdentifier));
         }
-        catch (Exception e)
+        else
         {
-          return BadRequest(e.Message);
+          throw new UnauthorizedAccessException("Unauthorized");
         }
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
       }
     }
   }
