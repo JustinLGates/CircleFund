@@ -17,7 +17,7 @@ namespace Controllers
     {
       _MessageService = messageService;
     }
-    //NOTE Anyone can access this controller route
+    //NOTE Anyone can access this route to send us a message
     [HttpPost]
     public ActionResult<Message> Create([FromBody] Message message)
     {

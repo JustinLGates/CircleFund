@@ -15,7 +15,7 @@ namespace Repositories
     internal Fundraiser Create(Fundraiser FundraiserData)
     {
       string sql = @"
-        INSERT INTO userFundraiser
+        INSERT INTO fundraiser
             (active, title, description, link, goal, currentAmount, organizationId)
             VALUES
             (@Active, @Title, @Description, @Link, @Goal, @CurrentAmount, @OrganizationId);
@@ -29,20 +29,20 @@ namespace Repositories
     internal Fundraiser GetById(int Id)
     {
       string sql = @"
-     SELECT * FROM userFundraiser WHERE id = @Id";
+     SELECT * FROM fundraiser WHERE id = @Id";
       return _db.QueryFirstOrDefault(sql, new { Id });
     }
 
     internal Fundraiser Get(string nameIdentifier)
     {
-      string sql = "SELECT * FROM userFundraiser WHERE id = @nameIdentifier";
+      string sql = "SELECT * FROM fundraiser WHERE id = @nameIdentifier";
       return _db.QueryFirstOrDefault<Fundraiser>(sql, new { nameIdentifier });
     }
 
     internal Fundraiser Edit(Fundraiser newFundraiser)
     {
       string sql = @"
-        UPDATE userFundraiser
+        UPDATE fundraiser
         SET
             goal = @Goal,
             currentAmount = @CurrentAmount,
@@ -51,7 +51,7 @@ namespace Repositories
             title = @Title,
             description = @Description,
         WHERE id = @Id;
-        SELECT * FROM userFundraiser WHERE  id = @Id && email = @Email;
+        SELECT * FROM fundraiser WHERE  id = @Id && email = @Email;
             ";
       return _db.ExecuteScalar<Fundraiser>(sql, newFundraiser);
     }
@@ -60,7 +60,7 @@ namespace Repositories
     {
       bool Value = false;
       string sql = @"
-     UPDATE userFundraiser 
+     UPDATE fundraiser 
      SET active = @Value
       WHERE id = @Id && email = Email;
      ";
