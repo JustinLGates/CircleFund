@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using Dapper;
 using Models;
@@ -25,10 +26,45 @@ namespace Repositories
       return FundraiserData;
     }
 
+    internal Fundraiser GetById(int Id)
+    {
+      string sql = @"
+     SELECT * FROM userFundraiser WHERE id = @Id";
+      return _db.QueryFirstOrDefault(sql, new { Id });
+    }
+
     internal Fundraiser Get(string nameIdentifier)
     {
       string sql = "SELECT * FROM userFundraiser WHERE id = @nameIdentifier";
       return _db.QueryFirstOrDefault<Fundraiser>(sql, new { nameIdentifier });
+    }
+
+    internal Fundraiser Edit(Fundraiser newFundraiser)
+    {
+      string sql = @"
+        UPDATE userFundraiser
+        SET
+            goal = @Goal,
+            currentAmount = @CurrentAmount,
+            active = @Active,
+            link = @Link,
+            title = @Title,
+            description = @Description,
+        WHERE id = @Id;
+        SELECT * FROM userFundraiser WHERE  id = @Id && email = @Email;
+            ";
+      return _db.ExecuteScalar<Fundraiser>(sql, newFundraiser);
+    }
+
+    internal bool Delete(int Id, string Email)
+    {
+      bool Value = false;
+      string sql = @"
+     UPDATE userFundraiser 
+     SET active = @Value
+      WHERE id = @Id && email = Email;
+     ";
+      return _db.Execute(sql, new { Value, Id, Email }) == 1;
     }
   }
 }

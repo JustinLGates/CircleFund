@@ -63,5 +63,49 @@ namespace Controllers
         return BadRequest(e.Message);
       }
     }
+    [Authorize]
+    [HttpPut("{id}")]
+    public ActionResult<Fundraiser> Edit(int id, [FromBody] Fundraiser Organization)
+    {
+      try
+      {
+        Organization.Id = id;
+        string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        if (nameIdentifier != null)
+        {
+          return Ok(value: _FundraiserService.Edit(Organization));
+        }
+        else
+        {
+          throw new UnauthorizedAccessException("Unauthorized");
+        }
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    //NOTE this route is used to archive a user should never fully delete this information
+    [Authorize]
+    [HttpDelete("{id}")]
+    public ActionResult<Boolean> Delete(int id)
+    {
+      try
+      {
+        string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        if (nameIdentifier != null)
+        {
+          return Ok(_FundraiserService.Delete(id, nameIdentifier));
+        }
+        else
+        {
+          throw new UnauthorizedAccessException("Unauthorized");
+        }
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }
