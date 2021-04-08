@@ -21,6 +21,7 @@
 --     phoneNumber VARCHAR(16) ,
 --     PRIMARY KEY (id)
 -- );
+-- add email firstname last name
 
 
 --     CREATE TABLE fundraiser  (
@@ -34,3 +35,31 @@
 --     organizationId int NOT NULL,
 --     PRIMARY KEY (id)
 -- );
+
+--     CREATE TABLE projects  (
+--     id int NOT NULL AUTO_INCREMENT,
+--     projectname VARCHAR(80) NOT NULL,
+--     creatoremail VARCHAR(100) NOT NULL,  
+--     PRIMARY KEY (id)
+-- );
+
+    CREATE TABLE testticket  (
+    id int NOT NULL AUTO_INCREMENT,
+    creatoremail VARCHAR(100) NOT NULL,  
+    testname VARCHAR(100) NOT NULL,
+    priorityLevel VARCHAR(100) NOT NULL,
+    assignedto VARCHAR(100) NOT NULL, 
+    setup VARCHAR(100) NOT NULL,  
+    steps VARCHAR(100) NOT NULL,  
+    verifications VARCHAR(100) NOT NULL, 
+    automate TINYINT NOT NULL,
+    relatedFeature VARCHAR(100) NOT NULL,  
+    jiraticket VARCHAR(100) NOT NULL,  
+    notes VARCHAR(100) NOT NULL,  
+    filepath VARCHAR(100),  
+    webstatus VARCHAR(100),  
+    androidstatus VARCHAR(100),  
+    iosstatus VARCHAR(100),  
+
+    PRIMARY KEY (id)
+);
