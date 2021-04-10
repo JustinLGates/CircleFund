@@ -9,25 +9,25 @@ namespace Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class ProjectController : ControllerBase
+  public class ProfileController : ControllerBase
   {
-    private readonly ProjectService _projectService;
-    internal ProjectController(ProjectService ProjectService)
+    private readonly ProfileService _profileService;
+    internal ProfileController(ProfileService ProfileService)
     {
-      _projectService = ProjectService;
+      _profileService = ProfileService;
     }
 
     [HttpPost]
     [Authorize]
-    public ActionResult<UserProject> Create([FromBody] UserProject userProject)
+    public ActionResult<Profile> Create([FromBody] Profile Profile)
     {
       try
       {
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         if (nameIdentifier != null)
         {
-          userProject.CreatorEmail = nameIdentifier;
-          return Ok(_projectService.Create(userProject));
+          Profile.Email = nameIdentifier;
+          return Ok(_profileService.Create(Profile));
         }
         else
         {
@@ -42,14 +42,14 @@ namespace Controllers
 
     [Authorize]
     [HttpGet]
-    public ActionResult<UserProject> Get()
+    public ActionResult<Profile> Get()
     {
       try
       {
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         if (nameIdentifier != null)
         {
-          return Ok(_projectService.Get(nameIdentifier));
+          return Ok(_profileService.Get(nameIdentifier));
         }
         else
         {
@@ -64,16 +64,16 @@ namespace Controllers
 
     [Authorize]
     [HttpPut("{id}")]
-    public ActionResult<UserProject> Edit(int id, [FromBody] UserProject UserProject)
+    public ActionResult<Profile> Edit(int id, [FromBody] Profile Profile)
     {
       try
       {
-        UserProject.Id = id;
+        Profile.Id = id;
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         if (nameIdentifier != null)
         {
-          UserProject.CreatorEmail = nameIdentifier;
-          return Ok(value: _projectService.Edit(UserProject));
+          Profile.Email = nameIdentifier;
+          return Ok(value: _profileService.Edit(Profile));
         }
         else
         {
@@ -95,7 +95,7 @@ namespace Controllers
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         if (nameIdentifier != null)
         {
-          return Ok(_projectService.Delete(id, nameIdentifier));
+          return Ok(_profileService.Delete(id, nameIdentifier));
         }
         else
         {

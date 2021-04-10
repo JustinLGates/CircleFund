@@ -50,11 +50,12 @@ namespace Project
 
       services.AddControllers();
 
-
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
 
-
       services.AddTransient<ProjectService>();
+      services.AddTransient<ProfileService>();
+      services.AddTransient<TicketService>();
+
     }
 
     private IDbConnection CreateDbConnection()

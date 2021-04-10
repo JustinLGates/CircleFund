@@ -2,9 +2,10 @@ using System;
 
 namespace Models
 {
-  public class userProject
+  public class Profile
   {
     public string Name { get; set; }
+    public string Email { get; set; }
     public int Id { get; set; }
   }
 }

@@ -9,25 +9,25 @@ namespace Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class ProjectController : ControllerBase
+  public class Ticketcontroller : ControllerBase
   {
-    private readonly ProjectService _projectService;
-    internal ProjectController(ProjectService ProjectService)
+    private readonly TicketService _ticketService;
+    public Ticketcontroller(TicketService TicketService)
     {
-      _projectService = ProjectService;
+      _ticketService = TicketService;
     }
 
     [HttpPost]
     [Authorize]
-    public ActionResult<UserProject> Create([FromBody] UserProject userProject)
+    public ActionResult<Ticket> Create([FromBody] Ticket Ticket)
     {
       try
       {
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         if (nameIdentifier != null)
         {
-          userProject.CreatorEmail = nameIdentifier;
-          return Ok(_projectService.Create(userProject));
+          Ticket.creatorEmail = nameIdentifier;
+          return Ok(_ticketService.Create(Ticket));
         }
         else
         {
@@ -42,14 +42,14 @@ namespace Controllers
 
     [Authorize]
     [HttpGet]
-    public ActionResult<UserProject> Get()
+    public ActionResult<Ticket> Get()
     {
       try
       {
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         if (nameIdentifier != null)
         {
-          return Ok(_projectService.Get(nameIdentifier));
+          return Ok(_ticketService.Get(nameIdentifier));
         }
         else
         {
@@ -64,16 +64,15 @@ namespace Controllers
 
     [Authorize]
     [HttpPut("{id}")]
-    public ActionResult<UserProject> Edit(int id, [FromBody] UserProject UserProject)
+    public ActionResult<Ticket> Edit(int id, [FromBody] Ticket Ticket)
     {
       try
       {
-        UserProject.Id = id;
+        Ticket.Id = id;
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         if (nameIdentifier != null)
         {
-          UserProject.CreatorEmail = nameIdentifier;
-          return Ok(value: _projectService.Edit(UserProject));
+          return Ok(value: _ticketService.Edit(Ticket));
         }
         else
         {
@@ -85,7 +84,6 @@ namespace Controllers
         return BadRequest(e.Message);
       }
     }
-
     [Authorize]
     [HttpDelete("{id}")]
     public ActionResult<Boolean> Delete(int id)
@@ -95,7 +93,7 @@ namespace Controllers
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         if (nameIdentifier != null)
         {
-          return Ok(_projectService.Delete(id, nameIdentifier));
+          return Ok(_ticketService.Delete(id, nameIdentifier));
         }
         else
         {
