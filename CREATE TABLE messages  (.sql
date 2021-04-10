@@ -43,23 +43,40 @@
 --     PRIMARY KEY (id)
 -- );
 
-    CREATE TABLE testticket  (
-    id int NOT NULL AUTO_INCREMENT,
-    creatoremail VARCHAR(100) NOT NULL,  
-    testname VARCHAR(100) NOT NULL,
-    priorityLevel VARCHAR(100) NOT NULL,
-    assignedto VARCHAR(100) NOT NULL, 
-    setup VARCHAR(100) NOT NULL,  
-    steps VARCHAR(100) NOT NULL,  
-    verifications VARCHAR(100) NOT NULL, 
-    automate TINYINT NOT NULL,
-    relatedFeature VARCHAR(100) NOT NULL,  
-    jiraticket VARCHAR(100) NOT NULL,  
-    notes VARCHAR(100) NOT NULL,  
-    filepath VARCHAR(100),  
-    webstatus VARCHAR(100),  
-    androidstatus VARCHAR(100),  
-    iosstatus VARCHAR(100),  
+    -- CREATE TABLE testticket  (
+--     id int NOT NULL AUTO_INCREMENT,
+--     creatoremail VARCHAR(100) NOT NULL,  
+--     testname VARCHAR(100) NOT NULL,
+--     priorityLevel VARCHAR(100) NOT NULL,
+--     assignedto VARCHAR(100) NOT NULL, 
+--     setup VARCHAR(100) NOT NULL,  
+--     steps VARCHAR(100) NOT NULL,  
+--     verifications VARCHAR(100) NOT NULL, 
+--     automate TINYINT NOT NULL,
+--     relatedFeature VARCHAR(100) NOT NULL,  
+--     jiraticket VARCHAR(100) NOT NULL,  
+--     notes VARCHAR(100) NOT NULL,  
+--     filepath VARCHAR(100),  
+--     webstatus VARCHAR(100),  
+--     androidstatus VARCHAR(100),  
+--     iosstatus VARCHAR(100),  
 
-    PRIMARY KEY (id)
+--     PRIMARY KEY (id)
+-- );
+
+CREATE TABLE project (
+id INT NOT NULL PRIMARY KEY,
+name VARCHAR(50)
 );
+
+CREATE TABLE contributors (
+contributor_email VARCHAR(20) NOT NULL PRIMARY KEY,
+role VARCHAR(20),
+);
+
+CREATE TABLE project_contributor (
+project_id INT NOT NULL,
+contributor_email VARCHAR(20) NOT NULL,
+PRIMARY KEY(project_id, contributor_name)
+);
+
