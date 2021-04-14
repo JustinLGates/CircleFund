@@ -1,6 +1,7 @@
 using Repositories;
 using Models;
 using System;
+using System.Collections.Generic;
 
 namespace Services
 {
@@ -12,29 +13,34 @@ namespace Services
     {
       _ticketRepo = TicketRepo;
     }
-    internal Ticket Create(Ticket Ticket)
+    internal Ticket Create(Ticket Ticket, int projectId)
     {
-      return _ticketRepo.Create(Ticket);
+      return _ticketRepo.Create(Ticket, projectId);
     }
 
-    internal Ticket Get(string userIdentifier)
+    internal IEnumerable<Ticket> Get(int projectIt)
     {
-      return _ticketRepo.Get(userIdentifier);
+      return _ticketRepo.Get(projectIt);
+    }
+
+    internal Ticket GetById(int ticketId)
+    {
+      return _ticketRepo.GetById(ticketId);
     }
 
     internal Ticket Edit(Ticket ticket)
     {
-      Ticket currentTicket = Get(ticket.creatorEmail);
+      Ticket currentTicket = GetById(ticket.TicketId);
 
-      if (ticket.filepath == null) { ticket.filepath = currentTicket.filepath; }
-      if (ticket.setup == null) { ticket.setup = currentTicket.setup; }
-      if (ticket.steps == null) { ticket.steps = currentTicket.steps; }
-      if (ticket.verifications == null) { ticket.verifications = currentTicket.verifications; }
-      if (ticket.priorityLevel == null) { ticket.priorityLevel = currentTicket.priorityLevel; }
-      if (ticket.notes == null) { ticket.notes = currentTicket.notes; }
-      if (ticket.automate == false) { ticket.automate = currentTicket.automate; }
-      if (ticket.iosStatus == null) { ticket.iosStatus = currentTicket.iosStatus; }
-      if (ticket.androidStatus == null) { ticket.androidStatus = currentTicket.androidStatus; }
+      if (ticket.FilePath == null) { ticket.FilePath = currentTicket.FilePath; }
+      if (ticket.Setup == null) { ticket.Setup = currentTicket.Setup; }
+      if (ticket.Steps == null) { ticket.Steps = currentTicket.Steps; }
+      if (ticket.Verifications == null) { ticket.Verifications = currentTicket.Verifications; }
+      if (ticket.PriorityLevel == null) { ticket.PriorityLevel = currentTicket.PriorityLevel; }
+      if (ticket.Notes == null) { ticket.Notes = currentTicket.Notes; }
+      if (ticket.Automate == false) { ticket.Automate = currentTicket.Automate; }
+      if (ticket.IosStatus == null) { ticket.IosStatus = currentTicket.IosStatus; }
+      if (ticket.AndroidStatus == null) { ticket.AndroidStatus = currentTicket.AndroidStatus; }
       if (ticket.webStatus == null) { ticket.webStatus = currentTicket.webStatus; }
 
       return _ticketRepo.Edit(ticket);

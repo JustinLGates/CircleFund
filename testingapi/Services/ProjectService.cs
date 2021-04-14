@@ -1,7 +1,7 @@
 using Repositories;
 using Models;
 using System;
-
+using System.Collections.Generic;
 namespace Services
 {
   public class ProjectService
@@ -13,19 +13,29 @@ namespace Services
       _projectRepo = ProjectRepo;
     }
 
-    internal UserProject Create(UserProject userProject)
+    internal UserProject Create(UserProject userProject, int creatorId)
     {
-      return _projectRepo.Create(userProject);
+      return _projectRepo.Create(userProject, creatorId);
     }
 
-    internal UserProject Get(string userIdentifier)
+    internal IEnumerable<ProjectContributor> GetAll(string userIdentifier, int userId)
     {
-      return _projectRepo.Get(userIdentifier);
+      return _projectRepo.Getall(userIdentifier, userId);
     }
 
-    internal UserProject Edit(UserProject UserProject)
+    internal UserProject getById(UserProject userProject, string userIdentifier)
     {
-      UserProject currentUserProject = Get(UserProject.CreatorEmail);
+      return _projectRepo.GetById(userProject.ProjectId, userIdentifier);
+    }
+
+    internal bool verifyUser(int projectId, int userId)
+    {
+      return _projectRepo.verifyProjectUser(projectId, userId);
+    }
+
+    internal UserProject Edit(UserProject UserProject, string userIdentifier)
+    {
+      UserProject currentUserProject = getById(UserProject, userIdentifier);
 
       if (UserProject.Name == null) { UserProject.Name = currentUserProject.Name; }
 

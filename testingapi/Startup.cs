@@ -1,5 +1,6 @@
 using System.Data;
 using Services;
+using Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +56,9 @@ namespace Project
       services.AddTransient<ProjectService>();
       services.AddTransient<ProfileService>();
       services.AddTransient<TicketService>();
+      services.AddTransient<ProjectRepo>();
+      services.AddTransient<ProfileRepo>();
+      services.AddTransient<TicketRepo>();
 
     }
 

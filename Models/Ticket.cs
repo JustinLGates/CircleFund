@@ -26,6 +26,8 @@ namespace Models
     public string iosStatus { get; set; }
     public string androidStatus { get; set; }
     public int Id { get; set; }
+    public int ProjectId { get; set; }
+
   }
 }
 

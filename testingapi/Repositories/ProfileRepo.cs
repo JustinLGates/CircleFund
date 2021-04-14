@@ -28,7 +28,10 @@ namespace Repositories
 
     internal Profile Get(string userIdentifier)
     {
-      string sql = "SELECT * FROM profile WHERE email = @userIdentifier ";
+      string sql = @"
+      SELECT name, id
+      FROM profile 
+      WHERE email = @userIdentifier ";
       return _db.QueryFirstOrDefault<Profile>(sql, new { userIdentifier });
     }
 

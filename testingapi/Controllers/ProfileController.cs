@@ -8,11 +8,11 @@ using Services;
 namespace Controllers
 {
   [ApiController]
-  [Route("api/[controller]")]
+  [Route("[controller]")]
   public class ProfileController : ControllerBase
   {
     private readonly ProfileService _profileService;
-    internal ProfileController(ProfileService ProfileService)
+    public ProfileController(ProfileService ProfileService)
     {
       _profileService = ProfileService;
     }

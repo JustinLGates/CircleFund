@@ -4,28 +4,30 @@ namespace Models
 {
   public class Ticket
   {
+    public string CreatorEmail { get; set; }
+    public int CreatorId { get; set; }
     [Required]
-    public string creatorEmail { get; set; }
+    public string TestName { get; set; }
+    public string PriorityLevel { get; set; }
+    public string AssignedTo { get; set; }
     [Required]
-    public string testName { get; set; }
-    public string priorityLevel { get; set; }
+    public string Setup { get; set; }
     [Required]
-    public string assignedTo { get; set; }
+    public string Steps { get; set; }
     [Required]
-    public string setup { get; set; }
-    [Required]
-    public string steps { get; set; }
-    [Required]
-    public string verifications { get; set; }
-    public bool automate { get; set; }
-    public string relatedFeature { get; set; }
-    public string jiraticket { get; set; }
-    public string notes { get; set; }
-    public string filepath { get; set; }
+    public string Verifications { get; set; }
+    public bool Automate { get; set; }
+    public string RelatedFeature { get; set; }
+    public string JiraTicket { get; set; }
+    public string Notes { get; set; }
+    public string FilePath { get; set; }
     public string webStatus { get; set; }
-    public string iosStatus { get; set; }
-    public string androidStatus { get; set; }
-    public int Id { get; set; }
+    public string IosStatus { get; set; }
+    public string AndroidStatus { get; set; }
+    public int TicketId { get; set; }
+    public int ProjectId { get; set; }
+
+
   }
 }
 

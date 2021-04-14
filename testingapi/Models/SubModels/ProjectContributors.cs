@@ -2,10 +2,10 @@ using System;
 
 namespace Models
 {
-  public class UserProject
+  public class ProjectContributor
   {
-    public string CreatorEmail { get; set; }
     public string Name { get; set; }
     public int ProjectId { get; set; }
+    public string Role { get; set; }
   }
 }
