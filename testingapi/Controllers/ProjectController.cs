@@ -52,17 +52,18 @@ namespace Controllers
       }
     }
 
-    [HttpPost("user/{userId}")]
+    [HttpPost]
     [Authorize]
-    public ActionResult<UserProject> Create(int userId, [FromBody] UserProject userProject)
+    public ActionResult<UserProject> Create([FromBody] UserProject userProject)
     {
       try
       {
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        Profile profile = _profileService.Get(nameIdentifier);
         if (nameIdentifier != null)
         {
           userProject.CreatorEmail = nameIdentifier;
-          return Ok(_projectService.Create(userProject, userId));
+          return Ok(_projectService.Create(userProject, profile.Id));
         }
         else
         {
@@ -101,15 +102,16 @@ namespace Controllers
     }
 
     [Authorize]
-    [HttpGet("{userId}")]
-    public ActionResult<ProjectContributor> GetAll(int userId)
+    [HttpGet]
+    public ActionResult<ProjectContributor> GetAll()
     {
       try
       {
         string nameIdentifier = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        Profile profile = _profileService.Get(nameIdentifier);
         if (nameIdentifier != null)
         {
-          return Ok(_projectService.GetAll(nameIdentifier, userId));
+          return Ok(_projectService.GetAll(nameIdentifier, profile.Id));
         }
         else
         {
